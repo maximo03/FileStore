@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FileStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FileStore.styles.css" asp-append-version="true" />
+    <link rel="shortcut icon" href="~/logo.svg"/>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <img src="~/logo.svg" style="width:60px;margin-left:70px"/>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="margin-right:70px;color:#2C2798; font-weight:400;font-size:35px;font-family:'Brush Script MT'">FileStore</a>              
+            </div>
+        </nav>
+    </header>
+    <input type="hidden" id="hdfOculto" value="@Url.Content("~")"/>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container" style="color:#6C63FF">
+            &copy; 2022 - FileStore - Ing.Nestor Maximo
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/sweet-alert/sweetalert2@11.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

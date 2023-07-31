@@ -1,0 +1,120 @@
+﻿@model List<UploadModel>
+
+@{
+    ViewData["Title"] = "Home";
+    List<ExtensionModel> extenciones = new List<ExtensionModel>();
+    extenciones.Add(new ExtensionModel { extencion = ".doc",file="word.png"});
+    extenciones.Add(new ExtensionModel { extencion = ".docx",file="word.png"});
+    extenciones.Add(new ExtensionModel { extencion = ".xlsx",file="exel.png"});
+    extenciones.Add(new ExtensionModel { extencion = ".pdf",file="pdf.png"});
+    extenciones.Add(new ExtensionModel { extencion = ".txt",file="texto.png"});
+    extenciones.Add(new ExtensionModel { extencion = ".mp3",file="music.png"});
+    extenciones.Add(new ExtensionModel { extencion = ".mp4",file="video.png"});
+    extenciones.Add(new ExtensionModel { extencion = ".mov",file="video.png"});
+
+    string valiExt(string ext)
+    {
+        string file = "";
+        foreach (var item in extenciones)
+        {
+            bool result = ext.Equals(item.extencion, StringComparison.OrdinalIgnoreCase);
+            if (result != false)
+            {
+                file = item.file;
+            }
+        }
+        return file;
+    }
+
+    string[] imagenes = { ".png",".jpg",".jpeg"};
+    
+    bool valiImg(string ext)
+    {
+        bool know = false;
+        foreach (var item in imagenes)
+        {
+            bool result = ext.Equals(item, StringComparison.OrdinalIgnoreCase);
+            if (result != false)
+            {
+                know = true;
+            }
+        }
+        return know;
+    }
+
+
+}
+
+
+<div class="table_btn text-start">
+     <form id="frmfile" enctype="multipart/form-data" method="post">
+        <d1>
+            <dd>
+                <input name="MyFile" type="file" id="ipt" required/>
+                <span class="btnfile">Add File</span>
+            </dd>
+        </d1>
+        <br /><br />
+     </form>
+     <button  onclick="upload()" class="btnsave">Save</button>
+     <hr />
+</div>
+
+<center>
+   <div class="scroll-div">
+     <div class="conten_box">
+
+
+
+         @if(Model.Count > 0){
+         
+               @foreach (var item in Model)
+               {
+                    var filename = "~/FileStore/"+@item.path;
+                    string ext = System.IO.Path.GetExtension(filename);
+                    var encontro = valiImg(ext);
+                    if (encontro == true) {
+                        <div class="iu-card">
+                            <img src="~/FileStore/@item.path"/>
+                             <div class="des">
+                                <h3>@item.path</h3>
+                                @Html.ActionLink("Download","Download",new{fileName=@item.path})
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        string img = valiExt(ext);
+                        <div class="iu-card">
+                            <img src="~/img/@img"/>
+                             <div class="des">
+                                <h3>@item.path</h3>
+                                @Html.ActionLink("Download","Download",new{fileName=@item.path})
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <center>
+                   <div class="empty">
+                     <img src="~/empty.svg"/>
+                     <p>Dont Files...!</p>
+                   </div>
+                </center>
+            }
+
+     </div>
+  </div>
+</center>
+
+
+
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/Upload.js"></script>
+
